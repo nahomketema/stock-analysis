@@ -1,0 +1,16 @@
+{%extends "layout.html"%}
+
+{%block content%}
+    {%if matches == []%}
+        <p1>There is nothing here. Please search for something before displaying</p1>
+    {%else%}
+        <h1>Matches</h1>
+        {%for match in matches%}
+            <div class="resultbox">
+                <p1>{{match["name"]}}</p1>
+                <p1>{{match["ticker symbol"]}}</p1>
+                <br>
+            </div>
+        {%endfor%}
+    {%endif%}
+{%endblock content%}

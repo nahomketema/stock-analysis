@@ -1,0 +1,16 @@
+{%extends "layout.html"%}
+
+{%block content%}
+    <div class="content">
+        {%if login_status%}
+            <h1>Hello, {{login_name}}!</h1>
+        {%else%}
+            <h1>Hello User!</h1>
+        {%endif%}
+        <br>
+        <h4 style="color: green;">Introductions</h4>
+        <p1>
+            Welcome to Stock Analysis. 
+        </p1>
+    </div>
+{%endblock content%}

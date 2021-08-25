@@ -1,0 +1,14 @@
+click
+Flask
+gunicorn
+itsdangerous
+Jinja2
+MarkupSafe
+Werkzeug
+Flask-WTF
+email_validator
+flask_behind_proxy
+flask_sqlalchemy
+pytest
+pycodestyle
+textblob
