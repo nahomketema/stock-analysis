@@ -18,7 +18,7 @@ from flask_bcrypt import Bcrypt
 from flask_behind_proxy import FlaskBehindProxy
 # Local imports below
 from forms import RegistrationForm, LoginForm, SearchForm
-from api import search_tickers
+from api import search_tickers, recent_value, generate_graph, twitter_search_hashtag, sentiment_analysis
 
 # Flask app and global values declared below
 app = Flask(__name__)
@@ -43,7 +43,13 @@ class User(db.Model):
     email = db.Column(db.String(60), unique=True, nullable=False)
     password = db.Column(db.String(30), nullable=False)
     def __repr__(self):
-        return f"User('{self.username}','{self.email}','{self.password}')"
+        return f"User('{self.username}','{self.email}')"
+class Save(db.Model): #Since the apis being used are fairly lineant, only the ticker symbol is needed to save the data
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), nullable=False)
+    tickername = db.Column(db.String(20), nullable=False)
+    def __repr__(self):
+        pass
 
 db.create_all()
 
@@ -64,16 +70,14 @@ def register():
         try:
             db.session.add(user)
             db.session.commit()
-        except Exception as e:
-            print("An error happened when //", e)
-            #flash("The username is taken. Please try again.")
+        except exc.IntegrityError:
+            flash("The username is already taken. Please try again")
         else:
             flash(f"Account created for {form.username.data}!", "success")
             global login_status
             login_status = True
             global login_name
             login_name = form.username.data
-            #print("LOGIN name: ", login_name)
         finally:
             return redirect(url_for("home"))
     return render_template("register.html", login_status=login_status, form=form)
@@ -132,13 +136,34 @@ def results():
                 filtered_matches.append(matches[counter].copy()) #might behave unexpectedly if we don't include the .copy()
             counter += 1
         matches = filtered_matches
-    searchinfo["name"] = ""
+    searchinfo["name"] = "" #gets reset once it gets used
     searchinfo["ticker"] = ""
     return render_template("search_results.html", login_status=login_status, login_name=login_name, matches=matches)
 
 @app.route("/search/results/<ticker>")
-def more_info():
-    return render_template("more_information.html")
+def more_info(ticker):
+    # Here, the graph gets generated and then it gets embedded into more_information.html
+    generate_graph(recent_value(ticker))#this generates and stores a graph as an html file
+    recent_tweets = twitter_search_hashtag(ticker)
+    if(recent_tweets == []):
+        return render_template("more_information.html", login_status=login_status, login_name=login_name, ticker=ticker, recent_tweets=[], sentiment_score=0)
+    sentiment_score = 0
+    count = 0
+    for tweet in recent_tweets:
+        sentiment_score += sentiment_analysis(tweet)
+        count += 1
+    try:
+        average = sentiment_score/count #impossible to get a divide by zero error but playing it safe
+    except Exception as e:
+        print("An error happened. Code: ", e)
+        average = 0
+    return render_template("more_information.html", login_status=login_status, login_name=login_name, ticker=ticker, recent_tweets=recent_tweets, sentiment_score=average)
+
+@app.route("/save/<ticker>")
+def save():
+    if(login_status == False):
+        pass
+    return redirect(url_for("saved"))
 
 @app.route("/saved")
 def saved():

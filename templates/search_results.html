@@ -9,7 +9,11 @@
             <div class="resultbox">
                 <p1>{{match["name"]}}</p1>
                 <p1>{{match["ticker symbol"]}}</p1>
-                <br>
+                <a href="/search/results/{{match['ticker symbol']}}">More Information</a>
+                {%if login_status%}
+                    <a href="/save/{{match['ticker symbol']}}">save</a>
+                {%endif%}
+                <br><br>
             </div>
         {%endfor%}
     {%endif%}

@@ -98,3 +98,7 @@ a.article-title:hover {
     /*used in search_results.html*/
     background-color: #ffffff;
 }
+
+.content{
+    background-color: black;
+}

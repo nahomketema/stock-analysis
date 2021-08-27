@@ -6,6 +6,7 @@ import requests
 from datetime import date, datetime
 import time
 from textblob import TextBlob
+import plotly.express as px
 
 #API Keys below
 alphavantage_api_key = "YH4KR847HP6RMI4Q"
@@ -61,6 +62,8 @@ def one_day_ago():
 def twitter_search_hashtag(tickersymbol):
     #The %23 in the request refers to the '#' symbol
     data_json = requests.get("https://api.twitter.com/2/tweets/search/recent?query=%23"+tickersymbol+"&max_results=10&start_time="+one_day_ago()+"T00:00:00.00Z", headers=twitter_headers).json()
+    if(data_json["data"] == []):
+        return []
     tweets = []
     for data in data_json["data"]:
         tweets.append(data["text"])
@@ -80,7 +83,15 @@ def sentiment_analysis(text):
     else:
         return average
 
+def generate_graph(data):
+    x = []
+    y = []
+    for price in data["values"]:
+        x.append(price["time"])
+        y.append((float(price["high"])+float(price["low"]))/2)
+    fig = px.line(x=x, y=y)
+    fig.write_html('static/pages/figure.html') # export to HTML file
+
+
 #Testing below
-hello = "I'm having a bad day today"
-world = "I'm not having a good day today"
-print(sentiment_analysis(hello), "  ", sentiment_analysis(world))
+#generate_graph(recent_value("tsla"))
