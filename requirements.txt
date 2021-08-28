@@ -13,3 +13,5 @@ pytest
 pycodestyle
 textblob
 plotly
+pandas
+flask_bcrypt

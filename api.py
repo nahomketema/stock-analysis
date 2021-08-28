@@ -29,6 +29,17 @@ def search_tickers(searchname):
         matches.append(match_dict.copy())
     return matches
 
+# This only gets used when saving
+def find_name_from_ticker(tickername):
+    # returns the name if found but if not, this function returns back a ""
+    matches = search_tickers(tickername)
+    if(matches == []):
+        return ""
+    for match in matches:
+        if(match["ticker symbol"] == tickername):
+            return match["name"]
+    return ""
+
 def recent_value(ticker_name):
     #This is to be used for data visualization of a ticker. Note that this only goes back one day
     recent_json = requests.get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+ticker_name+"&interval=5min&apikey="+alphavantage_api_key).json()

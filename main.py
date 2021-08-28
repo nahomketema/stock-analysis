@@ -18,7 +18,7 @@ from flask_bcrypt import Bcrypt
 from flask_behind_proxy import FlaskBehindProxy
 # Local imports below
 from forms import RegistrationForm, LoginForm, SearchForm
-from api import search_tickers, recent_value, generate_graph, twitter_search_hashtag, sentiment_analysis
+from api import search_tickers, recent_value, generate_graph, twitter_search_hashtag, sentiment_analysis, find_name_from_ticker
 
 # Flask app and global values declared below
 app = Flask(__name__)
@@ -47,7 +47,8 @@ class User(db.Model):
 class Save(db.Model): #Since the apis being used are fairly lineant, only the ticker symbol is needed to save the data
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False)
-    tickername = db.Column(db.String(20), nullable=False)
+    tickername = db.Column(db.String(10), nullable=False)
+    stockname = db.Column(db.String(50), nullable=False)
     def __repr__(self):
         pass
 
@@ -160,15 +161,40 @@ def more_info(ticker):
     return render_template("more_information.html", login_status=login_status, login_name=login_name, ticker=ticker, recent_tweets=recent_tweets, sentiment_score=average)
 
 @app.route("/save/<ticker>")
-def save():
-    if(login_status == False):
-        pass
+def save(ticker):
+    if(login_status == True):
+        stockname = find_name_from_ticker(ticker)
+        if(stockname == ""):
+            flash("The stock requested was not found. Please try again")
+            return redirect(url_for("home"))
+        save = Save(
+            username = login_name,
+            tickername = ticker,
+            stockname = stockname
+        )
+        try:
+            db.session.add(save)
+            db.session.commit()
+        except Exception as e:
+            print("Something went wrong. Error code: ", e)
+            flash("Something wrong happened.")
+            return redirect(url_for("home"))
     return redirect(url_for("saved"))
 
 @app.route("/saved")
 def saved():
-    #content here
-    return render_template("saved.html", login_status=login_status, login_name=login_name)
+    if(login_status == False):
+        return redirect(url_for("home"))
+    saved_stocks = db.session.query(Save).filter(Save.username == login_name)
+    # for all of the saved stocks, make a dict with "name" and "ticker symbol"
+    parsed_stocks = []
+    for stock in saved_stocks:
+        stock_information = {}
+        stock_information["name"] = stock.stockname
+        stock_information["ticker symbol"] = stock.tickername
+        parsed_stocks.append(stock_information.copy())
+    print(parsed_stocks)
+    return render_template("saved.html", login_status=login_status, login_name=login_name, saved_stock=parsed_stocks)
 
 @app.route("/about")
 def about():
