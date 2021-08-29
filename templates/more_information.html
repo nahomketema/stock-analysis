@@ -1,14 +1,21 @@
 {%extends "layout.html"%}
 
 {%block content%}
-    <div class="content">
-        <iframe src="{{ url_for('static', filename='pages/figure.html')  }}" title="{{ticker}} chart" height="600 px" width="1000 px"></iframe>
-        <h4>Sentiment Score: {{sentiment_score}}</h4>
-        <br>
-        <h2>Tweets</h2>
-        {%for tweet in recent_tweets%}
-            <p1>{{tweet}}</p1>
-            <br><br>
-        {%endfor%}
-    </div>
+    <html>
+        <head>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/more_information96.css')  }}">
+        </head>
+        <body>
+            <div class="content">
+                <iframe src="{{ url_for('static', filename='pages/figure.html')  }}" title="{{ticker}} chart" height="600 px" width="1000 px"></iframe>
+                <h4>Sentiment Score: {{sentiment_score}}</h4>
+                <br>
+                <h2>Tweets</h2>
+                {%for tweet in recent_tweets%}
+                    <p1>{{tweet}}</p1>
+                    <br><br>
+                {%endfor%}
+            </div>
+        </body>
+    </html>
 {%endblock content%}

@@ -1,29 +1,36 @@
 {%extends "layout.html"%}
 
 {%block content%}
-    <div class="content">
-        <div class="loginbox">
-            <form method="POST" action="">
-                <fieldset>
-                    {{form.hidden_tag()}}
-                    <div class="form-group">
-                        {{ form.username.label(class="form-control-label") }}
-                        {{ form.username(class="form-control form-control-lg") }}
-                    </div>
-                    <div class="form-group">
-                        {{ form.password.label(class="form-control-label") }}
-                        {{ form.password(class="form-control form-control-lg") }} 
-                    </div>
-                    <div class="form-group" style="float: right;">
-                        {{ form.remember.label(class="form-control-label")}}
-                        {{form.remember}}
-                    </div>
-                    <div class="form-group" style="padding-top: 10px;">
-                        {{ form.submit(class="btn btn-outline-info") }}
-                    </div>
-                    <p1>New here? <a style="text-decoration: none;" href="/register">Sign up</a></p1>
-                </fieldset>
-            </form>
-        </div>
-    </div>
+    <html>
+        <head>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css')  }}">
+        </head>
+        <body>
+            <div class="content">
+                <div class="loginbox">
+                    <form method="POST" action="">
+                        <fieldset>
+                            {{form.hidden_tag()}}
+                            <div class="form-group">
+                                {{ form.username.label(class="form-control-label") }}
+                                {{ form.username(class="form-control form-control-lg") }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password.label(class="form-control-label") }}
+                                {{ form.password(class="form-control form-control-lg") }} 
+                            </div>
+                            <div class="form-group" style="float: right;">
+                                {{ form.remember.label(class="form-control-label")}}
+                                {{form.remember}}
+                            </div>
+                            <div class="form-group" style="padding-top: 10px;">
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </div>
+                            <p1>New here? <a style="text-decoration: none;" href="/register">Sign up</a></p1>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </body>
+    </html>
 {%endblock content%}

@@ -1,24 +1,32 @@
 {%extends "layout.html"%}
 
 {%block content%}
-    <div class="content">
-        <div class="searchbox">
-            <form method="POST" action="">
-                <fieldset>
-                    {{form.hidden_tag()}}
-                    <div class="form-group">
-                        {{ form.searchname.label(class="form-control-label") }}
-                        {{ form.searchname(class="form-control form-control-lg") }}
-                    </div>
-                    <div class="form-group">
-                        {{ form.tickername.label(class="form-control-label") }}
-                        {{ form.tickername(class="form-control form-control-lg") }}
-                    </div>
-                    <div class="form-group" style="padding-top: 10px;">
-                        {{ form.submit(class="btn btn-outline-info") }}
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-    </div>
+    <html>
+        <head>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/search.css')  }}">
+        </head>
+        <body>
+            <div class="content">
+                <div class="searchbox">
+                    <form method="POST" action="">
+                        <fieldset>
+                            {{form.hidden_tag()}}
+                            <div class="form-group">
+                                {{ form.searchname.label(class="form-control-label") }}
+                                {{ form.searchname(class="form-control form-control-lg") }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.tickername.label(class="form-control-label") }}
+                                {{ form.tickername(class="form-control form-control-lg") }}
+                            </div>
+                            <div class="form-group" style="padding-top: 10px;">
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </body>
+    </html>
+    
 {%endblock content%}
