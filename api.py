@@ -9,8 +9,8 @@ from textblob import TextBlob
 import plotly.express as px
 
 #API Keys below
-alphavantage_api_key = "YH4KR847HP6RMI4Q"
-twitter_bearer_token = "AAAAAAAAAAAAAAAAAAAAAIiESwEAAAAAkv%2BmuzDlEAuhs88e7uj1qV%2B%2BEB0%3DHxcycitfog1TYKZyetEiwpyj2pIfnZ3oOuAKcHvtZXv5JbzuRe"
+alphavantage_api_key = ""
+twitter_bearer_token = ""
 
 #Alphavantage API calls below
 def search_tickers(searchname):
