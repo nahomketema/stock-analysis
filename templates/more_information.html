@@ -3,18 +3,28 @@
 {%block content%}
     <html>
         <head>
-            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/more_information96.css')  }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/more_information.css')  }}">
         </head>
         <body>
             <div class="content">
-                <iframe src="{{ url_for('static', filename='pages/figure.html')  }}" title="{{ticker}} chart" height="600 px" width="1000 px"></iframe>
-                <h4>Sentiment Score: {{sentiment_score}}</h4>
-                <br>
-                <h2>Tweets</h2>
-                {%for tweet in recent_tweets%}
-                    <p1>{{tweet}}</p1>
+                <h1>Chart for {{ticker}}</h1>
+                <iframe class="embed-responsive-item" src="{{ url_for('static', filename='pages/figure.html')  }}" title="{{ticker}} chart" height="600 px" width="1000 px"></iframe>
+                <br><br>
+                <div class="sentiment">
+                    <h4 style="color: green;">Sentiment Score:</h4><h4>{{sentiment_score}}</h4>
+                </div>
+                <br><br>
+                <div class="tweets">
+                    <h2 style="color: green;">Recent Tweets</h2><img src="{{url_for('static', filename='images/twitter_logo.png')}}" alt="Twitter logo" height="40px" width="40px">
                     <br><br>
-                {%endfor%}
+                    {%for tweet in recent_tweets%}
+                        <div class="tweet">
+                            <p1>{{tweet}}</p1>
+                        </div>
+                        <br><br>
+                    {%endfor%}
+                </div>
+                <br><br>
             </div>
         </body>
     </html>

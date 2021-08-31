@@ -1,0 +1,35 @@
+body{
+    background-color: rgba(0,0,50,1)
+}
+
+h1{
+    color: white;
+}
+
+h5{
+    color: white;
+}
+
+.content{
+    text-align: center;
+}
+
+.link{
+    text-decoration: none;
+    color: white;
+}
+.link:hover{
+    color: white;
+}
+
+.resultbox{
+    background-color: rgba(250,250,250,0.25);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.links{
+    text-align: right;
+}

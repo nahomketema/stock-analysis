@@ -1,0 +1,41 @@
+body{
+    background-color: rgba(0,0,50,1);
+}
+
+h1{
+    color: white;
+}
+
+h2{
+    color: white;
+}
+
+h4{
+    color: white;
+}
+
+p1{
+    color: white;
+}
+
+.content{
+    text-align: center;
+}
+
+.sentiment{
+    background-color: rgba(250,250,250,0.25);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.tweets{
+    background-color: rgba(250,250,250,0.25);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.tweet{
+    background-color: rgba(250,250,250,0.2);
+    padding: 10px;
+    border-radius: 10px;
+}

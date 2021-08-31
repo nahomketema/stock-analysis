@@ -5,9 +5,10 @@ Welcome to **Stock Analysis**, where the goal of this program is to give users a
 # Setup Instructions
 Once you have downloaded this program, There are a few steps needed before you can run it. 
 1. In order to install all of the required dependencies, type in ``pip3 install -r requirements.txt``. Note that some libraries might need admin permissions in order to install.
-2. Once that is done sign up for an Alphavantage API key as well as a Twitter API Key. After you obtain those APIs, navigate to the file called **api.py** and paste your API keys there.
-3. Before running this program, make sure that all of the files within that program have enough permissions in order to run.
-4. Upon completion of the steps above, you can run the program by typing in ``python3 main.py``.
+2. For the graphing function to work, type in ``python3 -m textblob.download_corpora``
+3. Once that is done sign up for an Alphavantage API key as well as a Twitter API Key. After you obtain those APIs, navigate to the file called **api.py** and paste your API keys there.
+4. Before running this program, make sure that all of the files within that program have enough permissions in order to run.
+5. Upon completion of the steps above, you can run the program by typing in ``python3 main.py``.
 
 # Disclaimers
 * If you plan on investing, invest at your own risk. By using this program, you accept that neither **Stock Analysis** nor the developers are liable for any losses incurred by the usage of this program.

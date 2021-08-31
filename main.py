@@ -47,7 +47,7 @@ class User(db.Model):
 class Save(db.Model): #Since the apis being used are fairly lineant, only the ticker symbol is needed to save the data
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False)
-    tickername = db.Column(db.String(10), nullable=False)
+    tickername = db.Column(db.String(10), unique=True, nullable=False)
     stockname = db.Column(db.String(50), nullable=False)
     def __repr__(self):
         pass
@@ -193,7 +193,6 @@ def saved():
         stock_information["name"] = stock.stockname
         stock_information["ticker symbol"] = stock.tickername
         parsed_stocks.append(stock_information.copy())
-    print(parsed_stocks)
     return render_template("saved.html", login_status=login_status, login_name=login_name, saved_stock=parsed_stocks)
 
 @app.route("/about")
@@ -201,4 +200,4 @@ def about():
     return render_template("about.html", login_status=login_status, login_name=login_name)
 
 if (__name__ == "__main__"):
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")

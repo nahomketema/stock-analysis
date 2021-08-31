@@ -9,16 +9,21 @@
             <div class="content">
                 {%if saved_stock == []%}
                     <h1>Saved</h1>
+                    <br><br>
                     <p1>There is no saved stock. Please save a stock and try again</p1>
                 {%else%}
                     <h1>Saved</h1>
+                    <br><br>
                     {%for stock in saved_stock%}
                         <div class="resultbox">
-                            <p1>{{stock["name"]}}</p1>
-                            <p1>{{stock["ticker symbol"]}}</p1>
-                            <a href="/search/results/{{stock['ticker symbol']}}">More Information</a>
-                            <br><br>
+                            <h5>{{stock["name"]}}</h5>
+                            <br>
+                            <p1 style="color: green;">${{stock["ticker symbol"]}}</p1>
+                            <div class="links">
+                                <button class="btn btn-primary btn-sm"><a href="/search/results/{{stock['ticker symbol']}}" class="link">More Information</a></button>
+                            </div>
                         </div>
+                        <br><br>
                     {%endfor%}
                 {%endif%}
             </div>

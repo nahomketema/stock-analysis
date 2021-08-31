@@ -15,17 +15,21 @@
                                 {{ form.username.label(class="form-control-label") }}
                                 {{ form.username(class="form-control form-control-lg") }}
                             </div>
+                            <br>
                             <div class="form-group">
                                 {{ form.password.label(class="form-control-label") }}
                                 {{ form.password(class="form-control form-control-lg") }} 
                             </div>
+                            
                             <div class="form-group" style="float: right;">
                                 {{ form.remember.label(class="form-control-label")}}
                                 {{form.remember}}
                             </div>
-                            <div class="form-group" style="padding-top: 10px;">
+                            <br>
+                            <div class="form-group">
                                 {{ form.submit(class="btn btn-outline-info") }}
                             </div>
+                            <br>
                             <p1>New here? <a style="text-decoration: none;" href="/register">Sign up</a></p1>
                         </fieldset>
                     </form>
